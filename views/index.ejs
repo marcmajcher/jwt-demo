@@ -6,7 +6,11 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <a href="/users">Log in</a>
+    <% if (typeof(token) !== 'undefined' && token) { %>
+    <a href="/private?token=<%=token%>">Check out my secret!</a>
+    <% } else { %>
+      <a href="/users">Log in</a>
+    <% } %>
+
   </body>
 </html>

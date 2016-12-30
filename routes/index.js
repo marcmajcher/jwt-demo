@@ -20,7 +20,6 @@ const verifyJWT = function(req, res, next) {
         next(err);
       }
       else {
-        console.log('GOT TOKEN', decoded);
         req.decodedToken = decoded;
         next();
       }
@@ -31,8 +30,7 @@ const verifyJWT = function(req, res, next) {
   }
 }
 
-
-router.post('/login', (req, res) => {
+router.post('/login', (req, res, next) => {
   const {
     username,
     password
@@ -42,7 +40,7 @@ router.post('/login', (req, res) => {
       const user = userdb[username];
       delete user.password;
       const token = jwt.sign(user, process.env.secretKey);
-      res.send(`good job, ${username}. Have a token: ${token}`);
+      res.render('index', {title: 'HOORAY!', token: token});
     }
     else {
       const err = new Error('Bad password'); // Don't do this for real.
@@ -62,7 +60,7 @@ router.get('/public', (req, res) => {
 });
 
 router.get('/private', verifyJWT, (req, res) => {
-  res.send('THIS IS SECRET');
+  res.render('secret', {title: 'SECRET', token: req.decodedToken});
 })
 
 module.exports = router;

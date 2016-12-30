@@ -40,7 +40,10 @@ router.post('/login', (req, res, next) => {
       const user = userdb[username];
       delete user.password;
       const token = jwt.sign(user, process.env.secretKey);
-      res.render('index', {title: 'HOORAY!', token: token});
+      res.render('index', {
+        title: 'HOORAY!',
+        token: token
+      });
     }
     else {
       const err = new Error('Bad password'); // Don't do this for real.
@@ -60,7 +63,10 @@ router.get('/public', (req, res) => {
 });
 
 router.get('/private', verifyJWT, (req, res) => {
-  res.render('secret', {title: 'SECRET', token: req.decodedToken});
+  res.render('secret', {
+    title: 'SECRET',
+    token: req.decodedToken
+  });
 })
 
 module.exports = router;

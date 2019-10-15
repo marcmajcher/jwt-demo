@@ -13,7 +13,7 @@
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "jsonwebtoken": "^7.2.1",
-    "morgan": "~1.6.1",
+    "morgan": "~1.9.1",
     "serve-favicon": "^2.3.2"
   },
   "description": "Just a quick demo of how to implement login, etc with JWT in express.",
